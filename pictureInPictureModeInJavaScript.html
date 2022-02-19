@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Picture In Picture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <div class="bg-[#171717] h-screen w-100 flex justify-center items-center flex-col">
+
+        <video  id="js-video-container" class="border-2 border-stone-100 border-dashed" width="500" height="500" autoplay>
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+        </video>
+        <button id="js-pip-btn" class="mt-4 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-150 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                Enable Picture in Picture Mode
+            </span>
+        </button>
+    </div>
+
+    <script>
+    const video = document.getElementById('js-video-container');
+    const pipBtn = document.getElementById('js-pip-btn');
+    pipBtn.addEventListener('click', async () => {
+
+        const span =  pipBtn.querySelector("span");
+        if (document.pictureInPictureElement === video) {
+            await document.exitPictureInPicture();
+            span.innerHTML = 'Enable Picture in Picture Mode';
+        } else {
+            await video.requestPictureInPicture();
+            span.innerHTML = 'Exit Picture in Picture Mode';
+        }
+    });
+    </script>
+</body>
+</html>
